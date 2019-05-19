@@ -1,5 +1,6 @@
 import os
 import logging
+import sys
 
 import flask
 
@@ -9,6 +10,12 @@ from . import handlers
 from . import redis_utils
 
 ENV = os.environ.get("ENV", "PROD")
+
+logging.basicConfig(
+    format='%(asctime)s [%(levelname)s] %(name)s: %(message)s',
+    level=logging.DEBUG,
+    stream=sys.stderr,
+)
 
 redis_url = os.environ.get("REDIS_URL", None)
 
@@ -24,6 +31,8 @@ logger = app.logger
 
 routes = [
 	('/', 'index', handlers.pages.front_page, ['GET']),
+	('/home', 'home', handlers.pages.home, ['GET']),
+	('/forms/weight-log', 'log_weight', handlers.forms.weight_log, ['POST']),
 ]
 
 for path, endpoint, handler, methods in routes:
