@@ -13,7 +13,7 @@ ENV = os.environ.get("ENV", "PROD")
 
 logging.basicConfig(
     format='%(asctime)s [%(levelname)s] %(name)s: %(message)s',
-    level=logging.DEBUG,
+    level=logging.DEBUG if not ENV == "PROD" else logging.INFO,
     stream=sys.stderr,
 )
 
