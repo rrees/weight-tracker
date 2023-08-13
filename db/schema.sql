@@ -31,6 +31,17 @@ CREATE TABLE public.logs (
 
 
 --
+-- Name: history; Type: VIEW; Schema: public; Owner: -
+--
+
+CREATE VIEW public.history AS
+ SELECT logs.log_date,
+    to_char(((logs.weight)::numeric / 1000.0), '999.9'::text) AS kilos
+   FROM public.logs
+  ORDER BY logs.log_date DESC;
+
+
+--
 -- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -65,4 +76,5 @@ ALTER TABLE ONLY public.schema_migrations
 --
 
 INSERT INTO public.schema_migrations (version) VALUES
-    ('20230813092521');
+    ('20230813092521'),
+    ('20230813095602');
