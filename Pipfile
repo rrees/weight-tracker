@@ -9,9 +9,7 @@ verify_ssl = true
 gunicorn = "*"
 redis = "*"
 Flask = "*"
-Flask-SSLify = "*"
-psycopg2 = "*"
-dataset = "*"
+psycopg = "*"
 
 [requires]
-python_version = "3.7"
+python_version = "3.11"
