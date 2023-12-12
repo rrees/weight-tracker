@@ -7,11 +7,12 @@ import flask
 from . import handlers
 from . import redis_utils
 
-ENV = os.environ.get("ENV", "PROD")
+APPLICATION_NAME = "weight_tracker"
+DEFAULT_DEBUG_LEVEL = os.environ.get("DEFAULT_DEBUG_LEVEL", "INFO")
 
 logging.basicConfig(
     format="%(asctime)s [%(levelname)s] %(name)s: %(message)s",
-    level=logging.DEBUG if not ENV == "PROD" else logging.INFO,
+    level=DEFAULT_DEBUG_LEVEL,
     stream=sys.stderr,
 )
 

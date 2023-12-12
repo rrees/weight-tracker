@@ -2,8 +2,15 @@ import logging
 
 import flask
 
-LOG = logging.getLogger(__name__)
+from forms.weight import WeightForm
+
 
 def weight_log():
-	LOG.debug(flask.request.form)
-	return flask.redirect(flask.url_for('home'))
+    flask.current_app.logger.debug(flask.request.form)
+
+    weight_form = WeightForm(flask.request.form)
+
+    if weight_form.validate():
+        return flask.redirect(flask.url_for("home"))
+
+    return flask.abort(400)
