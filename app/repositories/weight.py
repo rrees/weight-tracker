@@ -2,6 +2,8 @@ import os
 
 import psycopg
 
+from psycopg.rows import dict_row
+
 from . import sql
 
 _db_url = os.environ["DATABASE_URL"]
@@ -17,4 +19,11 @@ def history():
     with psycopg.connect(_db_url) as conn:
         with conn.cursor() as cursor:
             results = cursor.execute(sql.history)
+            return [r for r in results]
+
+
+def recent_history():
+    with psycopg.connect(_db_url, row_factory=dict_row) as conn:
+        with conn.cursor() as cursor:
+            results = cursor.execute(sql.recent_history)
             return [r for r in results]

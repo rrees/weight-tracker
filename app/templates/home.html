@@ -6,6 +6,8 @@
 <div class="container-fluid">
 	<h1>Home</h1>
 
+	<h2>Quick Log</h2>
+
 	<form method="POST" action="{{url_for('log_weight')}}">
 		<div class="form-group">
 			<label for="weight">Weight</label>
@@ -26,5 +28,15 @@
 			</button>
 		</div>
 	</form>
+
+	<h2>History</h2>
+
+	<ol>
+	{% for log in recent_history %}
+
+	<li>{{log.log_date}} {{log.kilos}}kg</li>
+	{% endfor %}
+	</ol>
+
 </div>
 {% endblock %}
