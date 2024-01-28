@@ -4,6 +4,8 @@ import sys
 
 import flask
 
+from .auth_password.blueprint import auth_blueprint
+
 from . import handlers
 from . import redis_utils
 
@@ -22,6 +24,7 @@ redis = redis_utils.setup_redis(redis_url) if redis_url else None
 
 app = flask.Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY", os.urandom(24))
+app.logger.setLevel(DEFAULT_DEBUG_LEVEL)
 
 logger = app.logger
 
@@ -33,6 +36,8 @@ routes = [
 
 for path, endpoint, handler, methods in routes:
     app.add_url_rule(path, endpoint, handler, methods=methods)
+
+app.register_blueprint(auth_blueprint)
 
 
 @app.errorhandler(500)
